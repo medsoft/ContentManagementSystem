@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz./thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts </title>
+</head>
+<body>
+
+        <div class="row"  layout:fragment="content" style="margin:5px">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Add or edit a post</div>
+                    <div class="panel panel-body">
+                        <form th:action="@{/savePost}" method="post">
+                            <div class="form-group">
+                                <input type="text" placeholder="title" name="title" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="description" name="description" class="form-control">
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-control" name="idCategory">
+                                 <option th:each="c:${categories}" th:value="${c.id}" th:text="${c.name}"></option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <select class="form-control" name="idAuthor">
+                                    <option th:each="a:${authors}" th:value="${a.id}" th:text="${a.name}"></option>
+                                </select>
+                            </div>
+
+                                <button  class="btn btn-primary btn-sm" type="submit">save</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">Add Category</div>
+                    <div class="panel panel-body">
+                        <form th:action="@{/saveCategory}" method="post">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control">
+                                <button class="btn btn-primary btn-sm" type="submit">save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Posts</div>
+                    <div class="panel panel-body">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Author</th>
+                                <th>Gerer</th>
+                            </tr>
+                            <tr th:each="posts:${posts}">
+                                <td th:text="${posts.title}"></td>
+                                <td th:text="${posts.Category.name}"></td>
+                                <td th:text="${posts.Author.name}"></td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" th:href="@{/edit}">Editer</a>
+                                    <a class="btn btn-danger btn-sm" th:href="@{/delete}">Supprimer</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Author Profil    </div>
+                    <div class="panel panel-body">
+
+                    </div>
+                </div>
+        </div>
+    </div>
+</body>
+</html>
